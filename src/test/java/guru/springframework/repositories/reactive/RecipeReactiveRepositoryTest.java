@@ -1,13 +1,14 @@
 package guru.springframework.repositories.reactive;
 
 import guru.springframework.domain.Recipe;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest
@@ -17,7 +18,7 @@ public class RecipeReactiveRepositoryTest {
     RecipeReactiveRepository recipeReactiveRepository;
 
     @Before
-    public void setup() throws  Exception {
+    public void setUp() throws Exception {
         recipeReactiveRepository.deleteAll().block();
     }
 
@@ -30,6 +31,6 @@ public class RecipeReactiveRepositoryTest {
 
         Long count = recipeReactiveRepository.count().block();
 
-        Assert.assertEquals(Long.valueOf(1l), count);
+        assertEquals(Long.valueOf(1L), count);
     }
 }

@@ -16,12 +16,10 @@ import java.io.IOException;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-
     private final RecipeReactiveRepository recipeReactiveRepository;
 
-    public ImageServiceImpl(RecipeReactiveRepository recipeReactiveRepository) {
-        this.recipeReactiveRepository = recipeReactiveRepository;
-
+    public ImageServiceImpl(RecipeReactiveRepository recipeService) {
+        this.recipeReactiveRepository = recipeService;
     }
 
     @Override
@@ -30,7 +28,6 @@ public class ImageServiceImpl implements ImageService {
         Mono<Recipe> recipeMono = recipeReactiveRepository.findById(recipeId)
                 .map(recipe -> {
                     Byte[] byteObjects = new Byte[0];
-
                     try {
                         byteObjects = new Byte[file.getBytes().length];
 
@@ -53,5 +50,6 @@ public class ImageServiceImpl implements ImageService {
         recipeReactiveRepository.save(recipeMono.block()).block();
 
         return Mono.empty();
+
     }
 }
